@@ -8,8 +8,8 @@
 byte mac[] = {0x90, 0xA2, 0xDA, 0x11, 0x3C, 0x9A};
 
 // Set fallback network config in case of no DHCP server
-IPAddress ip(192, 168, 1, 12);
-IPAddress gateway(192, 168, 1, 254);
+IPAddress ip(192, 168, 5, 12);
+IPAddress gateway(192, 168, 5, 1);
 IPAddress subnet(255, 255, 255, 0);
 
 // Create class instances for MQTT
@@ -86,6 +86,10 @@ void reconnect() {
       client.subscribe("/actuatorfeed/heatingoff");
       client.subscribe("/actuatorfeed/acon");
       client.subscribe("/actuatorfeed/acoff");
+      client.subscribe("/actuatorfeed/humidityon");
+      client.subscribe("/actuatorfeed/humidityoff");
+      client.subscribe("/actuatorfeed/moistureon");
+      client.subscribe("/actuatorfeed/moistureoff");
       
 
       delay(2000);
@@ -133,10 +137,10 @@ void call_Back(char* topic, byte* payload, unsigned int messLength){
   }
   else if(t.indexOf("heating") > 0){
     if(t.indexOf("heatingon") > 0){
-      digitalWrite(lightLed, HIGH);
+      digitalWrite(heaterLed, HIGH);
     }
     else if(t.indexOf("heatingoff") > 0){
-      digitalWrite(lightLed, LOW);
+      digitalWrite(heaterLed, LOW);
     }
     else{
       Serial.println(F("Malformed heating topic received"));
@@ -144,10 +148,10 @@ void call_Back(char* topic, byte* payload, unsigned int messLength){
   }
   else if(t.indexOf("aco") > 0){
     if(t.indexOf("acon") > 0){
-      digitalWrite(lightLed, HIGH);
+      digitalWrite(acLed, HIGH);
     }
     else if(t.indexOf("acoff") > 0){
-      digitalWrite(lightLed, LOW);
+      digitalWrite(acLed, LOW);
     }
     else{
       Serial.println(F("Malformed AC topic received"));
@@ -155,10 +159,10 @@ void call_Back(char* topic, byte* payload, unsigned int messLength){
   }
   else if(t.indexOf("humidity") > 0){
     if(t.indexOf("humidityon") > 0){
-      digitalWrite(lightLed, HIGH);
+      digitalWrite(humidityLed, HIGH);
     }
     else if(t.indexOf("humidityoff") > 0){
-      digitalWrite(lightLed, LOW);
+      digitalWrite(humidityLed, LOW);
     }
     else{
       Serial.println(F("Malformed humidity topic received"));
@@ -166,10 +170,10 @@ void call_Back(char* topic, byte* payload, unsigned int messLength){
   }
   else if(t.indexOf("moisture") > 0){
     if(t.indexOf("moistureon") > 0){
-      digitalWrite(lightLed, HIGH);
+      digitalWrite(moistureLed, HIGH);
     }
     else if(t.indexOf("moistureoff") > 0){
-      digitalWrite(lightLed, LOW);
+      digitalWrite(moistureLed, LOW);
     }
     else{
       Serial.println(F("Malformed moisture topic received"));

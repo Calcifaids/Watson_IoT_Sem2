@@ -16,8 +16,8 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 byte mac[] = {0x90, 0xA2, 0xDA, 0x11, 0x3B, 0xC6};
 
 // Set fallback network config in case of no DHCP server
-IPAddress ip(192, 168, 1, 11);
-IPAddress gateway(192, 168, 1, 254);
+IPAddress ip(192, 168, 5, 11);
+IPAddress gateway(192, 168, 5, 1);
 IPAddress subnet(255, 255, 255, 0);
 
 // Create class instances for MQTT
